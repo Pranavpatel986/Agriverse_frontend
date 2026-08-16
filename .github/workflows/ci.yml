@@ -1,0 +1,44 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npx eslint .
+
+      - name: Test
+        run: npx vitest run
+
+      - name: Build
+        env:
+          # Placeholder values so the build step succeeds in CI — Vercel's
+          # own build uses the real values from its project settings, this
+          # is only checking that `next build` itself doesn't break.
+          NEXT_PUBLIC_API_BASE_URL: "http://localhost:8081/api/v1"
+          NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
+        run: npm run build
+
+      # Vercel deploys on push to main automatically via its own GitHub
+      # integration once you connect the repo — this workflow is only a
+      # "does it still pass" gate, it does not deploy anything itself.

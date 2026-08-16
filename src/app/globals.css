@@ -1,0 +1,256 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ==========================================================================
+   AgriVerse Design System — Design Tokens
+   ==========================================================================
+   Palette rationale (full reasoning in the foundation report):
+   - canopy   → primary brand: deep forest green. Trust, growth, primary
+                actions/navigation. Deliberately not the generic
+                terracotta-on-cream or dark+neon look.
+   - harvest  → accent: warm marigold amber. CTAs, badges, active states.
+   - loam     → secondary neutral-warm: toasted soil brown. Used sparingly
+                for tags/credentials — distinct from harvest, not terracotta.
+   - sky      → informational: muted slate blue. Weather/market/data
+                contexts, links inside data tables.
+   - clay     → destructive/error: muted brick red, warm rather than a
+                stock alarm red.
+   - paper/ink → background/text pair with a faint sage-grey undertone
+                (deliberately NOT #F4F1EA cream).
+   All colors expressed in OKLCH so lightness/chroma stay perceptually
+   consistent across each ramp.
+   ========================================================================== */
+
+:root {
+  --radius: 0.5rem;
+
+  /* Brand ramp — canopy (forest green) */
+  --canopy-50: oklch(0.97 0.02 155);
+  --canopy-100: oklch(0.93 0.045 155);
+  --canopy-200: oklch(0.86 0.07 155);
+  --canopy-300: oklch(0.74 0.09 155);
+  --canopy-400: oklch(0.6 0.1 155);
+  --canopy-500: oklch(0.46 0.09 155);
+  --canopy-600: oklch(0.36 0.075 155);
+  --canopy-700: oklch(0.29 0.06 155);
+  --canopy-800: oklch(0.24 0.045 155);
+  --canopy-900: oklch(0.19 0.035 155);
+
+  /* Accent ramp — harvest (marigold amber) */
+  --harvest-50: oklch(0.97 0.03 80);
+  --harvest-100: oklch(0.93 0.06 80);
+  --harvest-200: oklch(0.86 0.1 78);
+  --harvest-300: oklch(0.78 0.13 75);
+  --harvest-400: oklch(0.72 0.15 72);
+  --harvest-500: oklch(0.65 0.15 68);
+  --harvest-600: oklch(0.55 0.14 62);
+  --harvest-700: oklch(0.45 0.12 58);
+
+  /* Secondary — loam (toasted soil brown) */
+  --loam-100: oklch(0.91 0.03 55);
+  --loam-300: oklch(0.72 0.06 50);
+  --loam-500: oklch(0.5 0.08 45);
+  --loam-700: oklch(0.35 0.06 42);
+
+  /* Informational — sky (muted slate blue): weather/market/data contexts */
+  --sky-100: oklch(0.92 0.02 240);
+  --sky-300: oklch(0.75 0.05 240);
+  --sky-500: oklch(0.52 0.08 240);
+  --sky-700: oklch(0.38 0.07 240);
+
+  /* Destructive — clay (muted brick red) */
+  --clay-100: oklch(0.92 0.03 30);
+  --clay-500: oklch(0.5 0.14 30);
+  --clay-700: oklch(0.4 0.13 30);
+
+  /* Neutrals — paper/ink, faint sage-grey undertone */
+  --paper: oklch(0.985 0.006 145);
+  --paper-sunken: oklch(0.965 0.008 145);
+  --ink: oklch(0.2 0.015 155);
+  --ink-muted: oklch(0.42 0.015 155);
+  --border-subtle: oklch(0.89 0.01 145);
+
+  /* Semantic tokens (light mode) */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+  --primary: var(--canopy-700);
+  --primary-foreground: oklch(0.98 0.01 145);
+  --secondary: var(--loam-100);
+  --secondary-foreground: var(--loam-700);
+  --muted: var(--paper-sunken);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--harvest-400);
+  --accent-foreground: var(--canopy-900);
+  --destructive: var(--clay-500);
+  --destructive-foreground: oklch(0.98 0.01 30);
+  --info: var(--sky-500);
+  --info-foreground: oklch(0.98 0.01 240);
+  --success: var(--canopy-500);
+  --success-foreground: oklch(0.98 0.01 145);
+  --border: var(--border-subtle);
+  --input: var(--border-subtle);
+  --ring: var(--canopy-500);
+}
+
+.dark {
+  --background: oklch(0.17 0.015 155);
+  --foreground: oklch(0.93 0.01 145);
+  --card: oklch(0.21 0.017 155);
+  --card-foreground: oklch(0.93 0.01 145);
+  --popover: oklch(0.21 0.017 155);
+  --popover-foreground: oklch(0.93 0.01 145);
+  --primary: var(--canopy-300);
+  --primary-foreground: oklch(0.19 0.035 155);
+  --secondary: oklch(0.27 0.025 50);
+  --secondary-foreground: var(--loam-100);
+  --muted: oklch(0.24 0.017 155);
+  --muted-foreground: oklch(0.68 0.02 145);
+  --accent: var(--harvest-400);
+  --accent-foreground: oklch(0.19 0.035 155);
+  --destructive: oklch(0.62 0.14 30);
+  --destructive-foreground: oklch(0.98 0.01 30);
+  --info: var(--sky-300);
+  --info-foreground: oklch(0.19 0.035 155);
+  --success: var(--canopy-300);
+  --success-foreground: oklch(0.19 0.035 155);
+  --border: oklch(0.32 0.02 155);
+  --input: oklch(0.32 0.02 155);
+  --ring: var(--canopy-300);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Raw ramps exposed as utilities too (bg-canopy-700, text-harvest-500...) */
+  --color-canopy-50: var(--canopy-50);
+  --color-canopy-100: var(--canopy-100);
+  --color-canopy-200: var(--canopy-200);
+  --color-canopy-300: var(--canopy-300);
+  --color-canopy-400: var(--canopy-400);
+  --color-canopy-500: var(--canopy-500);
+  --color-canopy-600: var(--canopy-600);
+  --color-canopy-700: var(--canopy-700);
+  --color-canopy-800: var(--canopy-800);
+  --color-canopy-900: var(--canopy-900);
+  --color-harvest-50: var(--harvest-50);
+  --color-harvest-100: var(--harvest-100);
+  --color-harvest-200: var(--harvest-200);
+  --color-harvest-300: var(--harvest-300);
+  --color-harvest-400: var(--harvest-400);
+  --color-harvest-500: var(--harvest-500);
+  --color-harvest-600: var(--harvest-600);
+  --color-harvest-700: var(--harvest-700);
+  --color-loam-100: var(--loam-100);
+  --color-loam-300: var(--loam-300);
+  --color-loam-500: var(--loam-500);
+  --color-loam-700: var(--loam-700);
+  --color-sky-100: var(--sky-100);
+  --color-sky-300: var(--sky-300);
+  --color-sky-500: var(--sky-500);
+  --color-sky-700: var(--sky-700);
+  --color-clay-100: var(--clay-100);
+  --color-clay-500: var(--clay-500);
+  --color-clay-700: var(--clay-700);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Typography — three roles, used with restraint (see foundation report) */
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Reading surfaces (articles, roadmap content) use the display face for
+     headings only — body copy always stays on Inter for legibility on
+     low-end/rural devices, per the Product Spec's accessibility priority. */
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+
+  /* Signature interaction: nav/text links grow a canopy underline from the
+     left on hover/focus rather than an instant color swap — the one
+     restrained motion signature reused everywhere a link appears. */
+  .link-underline {
+    @apply relative;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms ease;
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  /* Skip-to-content link (present on every page per the a11y baseline) */
+  .skip-link {
+    @apply bg-primary text-primary-foreground fixed top-2 left-2 z-100 -translate-y-20 rounded-md px-4 py-2 text-sm font-medium transition-transform focus:translate-y-0;
+  }
+}
+
+@layer utilities {
+  /* Respect prefers-reduced-motion globally, per the a11y baseline */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
